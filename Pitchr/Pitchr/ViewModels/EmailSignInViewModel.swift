@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class EmailSignInViewModel {
     var isInLoginState: Bool { didSet { checkLoginState() }}
@@ -38,5 +39,33 @@ class EmailSignInViewModel {
     
     fileprivate func checkLoginState() {
         loginStateObserver?(isInLoginState)
+    }
+    
+    func performRegistration(completion: @escaping (Error?) -> ()) {
+        guard let email = email, let password = password else { return }
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+            
+            if let error = error {
+                NSLog("An error occured when creating a new user: \(error)")
+                completion(error)
+                return
+            }
+            
+            self.saveUserToFirestore(uid: result?.user.uid ?? "", completion: completion)
+        }
+    }
+    
+    func saveUserToFirestore(uid: String = Auth.auth().currentUser?.uid ?? "", completion: @escaping (Error?) -> ()) {
+        let data = ["name": name ?? "", "uid": uid, "email": email ?? ""]
+        Firestore.firestore().collection("users").document(uid).setData(data) { (error) in
+            
+            if let error = error {
+                NSLog("An error occured when saving a user to Firestore: \(error)")
+                completion(error)
+                return
+            }
+            
+            completion(nil)
+        }
     }
 }

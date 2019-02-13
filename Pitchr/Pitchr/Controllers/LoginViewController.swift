@@ -7,11 +7,10 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
 
-//    fileprivate var isInLoginState = true
-    
     fileprivate let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Pitchr"
@@ -66,8 +65,14 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    fileprivate let loadingIndicator = JGProgressHUD(style: .dark)
+    
     fileprivate let emailSignInView = EmailSignInView()
     fileprivate let emailSignInViewModel = EmailSignInViewModel(isInLoginState: true)
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -87,7 +92,6 @@ class LoginViewController: UIViewController {
     
     fileprivate func setupEmailSignInViewModelObservers() {
         emailSignInViewModel.isFormValidObserver = { [weak self] (isFormValid) in
-            print(isFormValid)
             self?.emailSignInView.signInButton.isEnabled = isFormValid ? true : false
             self?.emailSignInView.signInButton.backgroundColor = isFormValid ? .appGreenTwo : UIColor(white: 0.85, alpha: 1)
         }
@@ -124,6 +128,42 @@ class LoginViewController: UIViewController {
         emailSignInView.nameTextField.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
         emailSignInView.emailTextField.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
         emailSignInView.passwordTextField.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
+        emailSignInView.signInButton.addTarget(self, action: #selector(handleSignIn), for: .touchUpInside)
+    }
+    
+    @objc fileprivate func handleSignIn() {
+        handleTap()
+        if emailSignInViewModel.isInLoginState {
+            loadingIndicator.textLabel.text = "Logging in"
+            handleLogin()
+        } else {
+            loadingIndicator.textLabel.text = "Registering"
+            handleRegister()
+        }
+        loadingIndicator.show(in: self.view)
+    }
+    
+    fileprivate func handleLogin() {
+        
+    }
+    
+    fileprivate func handleRegister() {
+        emailSignInViewModel.performRegistration { [weak self] (error) in
+            if let error = error {
+                self?.showError(error, with: "Registration Failed")
+                return
+            }
+            
+            self?.loadingIndicator.indicatorView = JGProgressHUDSuccessIndicatorView()
+            self?.loadingIndicator.textLabel.text = "Success!"
+            self?.loadingIndicator.dismiss(afterDelay: 1)
+        }
+    }
+    
+    fileprivate func showError(_ error: Error, with text: String) {
+        self.loadingIndicator.textLabel.text = text
+        self.loadingIndicator.detailTextLabel.text = error.localizedDescription
+        self.loadingIndicator.dismiss(afterDelay: 3)
     }
     
     @objc fileprivate func handleTextChanged(textField: UITextField) {
