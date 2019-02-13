@@ -38,7 +38,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc func handleSettings() {
-        
+        let loginViewController = LoginViewController()
+        present(loginViewController, animated: true, completion: nil)
     }
     
     //MARK: - Fileprivate
