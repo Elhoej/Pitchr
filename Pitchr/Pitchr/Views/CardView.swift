@@ -15,14 +15,27 @@ class CardView: UIView {
             cardImageView.image = UIImage(named: cardViewModel.imageNames.first ?? "")
             informationLabel.attributedText = cardViewModel.attributedString
             informationLabel.textAlignment = cardViewModel.textAlignment
-            
-            (0..<cardViewModel.imageNames.count).forEach { (_) in
-                let barCell = UIView()
-                barCell.layer.cornerRadius = 2
-                barCell.backgroundColor = barCellDefaultColor
-                barStackView.addArrangedSubview(barCell)
-            }
-            barStackView.arrangedSubviews.first?.backgroundColor = .white
+    
+            setupBarStackView()
+            setupPageIndexObserver()
+        }
+    }
+    
+    fileprivate func setupBarStackView() {
+        (0..<cardViewModel.imageNames.count).forEach { (_) in
+            let barCell = UIView()
+            barCell.layer.cornerRadius = 2
+            barCell.backgroundColor = barCellDefaultColor
+            barStackView.addArrangedSubview(barCell)
+        }
+        barStackView.arrangedSubviews.first?.backgroundColor = barCellSelectedColor
+    }
+    
+    fileprivate func setupPageIndexObserver() {
+        cardViewModel.pageIndexObserver = { [weak self] (index, image) in
+            self?.cardImageView.image = image
+            self?.barStackView.arrangedSubviews.forEach({ $0.backgroundColor = self?.barCellDefaultColor })
+            self?.barStackView.arrangedSubviews[index].backgroundColor = self?.barCellSelectedColor
         }
     }
     
@@ -51,6 +64,7 @@ class CardView: UIView {
     //Configurations
     fileprivate let swipeThreshold: CGFloat = 120
     fileprivate let barCellDefaultColor = UIColor(white: 0, alpha: 0.3)
+    fileprivate let barCellSelectedColor = UIColor.white
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,21 +81,14 @@ class CardView: UIView {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
     
-    fileprivate var pageIndex = 0
-    
     @objc fileprivate func handleTap(gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: nil)
         let shouldAdvance = location.x > frame.width / 2 ? true : false
         if shouldAdvance {
-            pageIndex = min(pageIndex + 1, cardViewModel.imageNames.count - 1)
+            cardViewModel.advanceToNextPage()
         } else {
-            pageIndex = max(0, pageIndex - 1)
+            cardViewModel.goToPreviousPage()
         }
-        
-        let imageName = cardViewModel.imageNames[pageIndex]
-        cardImageView.image = UIImage(named: imageName)
-        barStackView.arrangedSubviews.forEach({ $0.backgroundColor = barCellDefaultColor })
-        barStackView.arrangedSubviews[pageIndex].backgroundColor = .white
     }
     
     @objc fileprivate func handlePan(gesture: UIPanGestureRecognizer) {

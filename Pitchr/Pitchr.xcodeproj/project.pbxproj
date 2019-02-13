@@ -12,6 +12,7 @@
 		ACB99A4B22139A6F0057F73C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A4A22139A6F0057F73C /* User.swift */; };
 		ACB99A4E2213A2A90057F73C /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A4D2213A2A90057F73C /* CardViewModel.swift */; };
 		ACB99A50221407E90057F73C /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A4F221407E90057F73C /* Advertiser.swift */; };
+		ACB99A53221445190057F73C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A52221445190057F73C /* LoginViewController.swift */; };
 		ACF0042922130072004F1DD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF0042822130072004F1DD4 /* AppDelegate.swift */; };
 		ACF0042B22130072004F1DD4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF0042A22130072004F1DD4 /* HomeViewController.swift */; };
 		ACF004302213007A004F1DD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACF0042F2213007A004F1DD4 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 		ACB99A4A22139A6F0057F73C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		ACB99A4D2213A2A90057F73C /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		ACB99A4F221407E90057F73C /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
+		ACB99A52221445190057F73C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ACF0042522130071004F1DD4 /* Pitchr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pitchr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACF0042822130072004F1DD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACF0042A22130072004F1DD4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +66,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		ACB99A51221444EE0057F73C /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				ACB99A52221445190057F73C /* LoginViewController.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
 		ACF0041C22130071004F1DD4 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +93,7 @@
 		ACF0042722130071004F1DD4 /* Pitchr */ = {
 			isa = PBXGroup;
 			children = (
+				ACB99A51221444EE0057F73C /* SignIn */,
 				ACB99A4C2213A29D0057F73C /* ViewModels */,
 				ACB99A4922139A640057F73C /* Model */,
 				ACF0043E22130A5F004F1DD4 /* Views */,
@@ -184,6 +195,7 @@
 				ACB99A4E2213A2A90057F73C /* CardViewModel.swift in Sources */,
 				ACB99A48221311DC0057F73C /* CardView.swift in Sources */,
 				ACB99A4622130DF40057F73C /* HomeTopNavigationStackView.swift in Sources */,
+				ACB99A53221445190057F73C /* LoginViewController.swift in Sources */,
 				ACB99A4B22139A6F0057F73C /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

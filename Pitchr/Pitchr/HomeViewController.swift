@@ -32,10 +32,16 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         setupViews()
         
+        topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
+        
         setupDummyCards()
     }
     
-    //MARK:- Fileprivate
+    @objc func handleSettings() {
+        
+    }
+    
+    //MARK: - Fileprivate
     
     fileprivate func setupDummyCards() {
         cardViewModels.forEach { (card) in

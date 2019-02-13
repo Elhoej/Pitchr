@@ -10,6 +10,24 @@ import UIKit
 
 class HomeTopNavigationStackView: UIStackView {
     
+    let settingsButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "user-1").withRenderingMode(.alwaysOriginal), for: .normal)
+        return button
+    }()
+    
+    let newCardButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "newcard").withRenderingMode(.alwaysOriginal), for: .normal)
+        return button
+    }()
+    
+    let messageButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "chat-1").withRenderingMode(.alwaysOriginal), for: .normal)
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupStackView()
@@ -18,7 +36,7 @@ class HomeTopNavigationStackView: UIStackView {
     //MARK:- Fileprivate
     
     fileprivate func setupStackView() {
-        addArrangedSubview(UIView())
+        [settingsButton, UIView(), newCardButton, UIView(), messageButton].forEach({ addArrangedSubview($0) })
         distribution = .equalCentering
         isLayoutMarginsRelativeArrangement = true
         layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
