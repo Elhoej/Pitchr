@@ -21,8 +21,10 @@ enum Appearance {
     }
 }
 
-enum AppFontName: String {
-    case light = "Light"
-    case regular = "Regular"
-    case bold = "SemiBold"
+extension Appearance {
+    enum AppFontName: String {
+        case light = "Light"
+        case regular = "Regular"
+        case bold = "SemiBold"
+    }
 }

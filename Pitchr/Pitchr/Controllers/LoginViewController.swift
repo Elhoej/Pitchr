@@ -10,7 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
-    fileprivate var isInLoginState = true
+//    fileprivate var isInLoginState = true
     
     fileprivate let titleLabel: UILabel = {
         let label = UILabel()
@@ -67,6 +67,7 @@ class LoginViewController: UIViewController {
     }()
     
     fileprivate let emailSignInView = EmailSignInView()
+    fileprivate let emailSignInViewModel = EmailSignInViewModel(isInLoginState: true)
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -81,6 +82,31 @@ class LoginViewController: UIViewController {
         setupEmailLoginView()
         setupKeyboardObservers()
         setupTapGesture()
+        setupEmailSignInViewModelObservers()
+    }
+    
+    fileprivate func setupEmailSignInViewModelObservers() {
+        emailSignInViewModel.isFormValidObserver = { [weak self] (isFormValid) in
+            self?.emailSignInView.signInButton.isEnabled = isFormValid ? true : false
+            self?.emailSignInView.signInButton.backgroundColor = isFormValid ? .appGreenTwo : UIColor(white: 0.85, alpha: 1)
+        }
+        
+        emailSignInViewModel.loginStateObserver = { [weak self] (isInLoginState) in
+            self?.view.endEditing(true)
+            self?.emailSignInView.loginStateButton.isEnabled = isInLoginState ? false : true
+            self?.emailSignInView.registerStateButton.isEnabled = isInLoginState ? true : false
+            self?.emailSignInView.loginStateButton.setTitleColor(isInLoginState ? .black : .lightGray, for: .normal)
+            self?.emailSignInView.registerStateButton.setTitleColor(isInLoginState ? .lightGray : .black, for: .normal)
+            
+            self?.emailSignInHeightAnchor?.constant = isInLoginState ? 280 : 352.5
+            self?.emailSignInView.nameTextField.isHidden = isInLoginState ? true : false
+            self?.emailSignInView.nameLabel.isHidden = isInLoginState ? true : false
+            self?.emailSignInView.nameBottomLine.isHidden = isInLoginState ? true : false
+            
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self?.view.layoutIfNeeded()
+            }, completion: nil)
+        }
     }
     
     fileprivate func setupTapGesture() {
@@ -94,6 +120,19 @@ class LoginViewController: UIViewController {
     fileprivate func setupEmailLoginView() {
         emailSignInView.loginStateButton.addTarget(self, action: #selector(handleEmailSignInState), for: .touchUpInside)
         emailSignInView.registerStateButton.addTarget(self, action: #selector(handleEmailSignInState), for: .touchUpInside)
+        emailSignInView.nameTextField.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
+        emailSignInView.emailTextField.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
+        emailSignInView.passwordTextField.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
+    }
+    
+    @objc fileprivate func handleTextChanged(textField: UITextField) {
+        if textField == emailSignInView.nameTextField {
+            emailSignInViewModel.email = textField.text
+        } else if textField == emailSignInView.passwordTextField {
+            emailSignInViewModel.password = textField.text
+        } else {
+            emailSignInViewModel.name = textField.text
+        }
     }
     
     fileprivate func setupKeyboardObservers() {
@@ -113,21 +152,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc fileprivate func handleEmailSignInState() {
-        self.view.endEditing(true)
-        isInLoginState = isInLoginState ? false : true
-        emailSignInView.loginStateButton.isEnabled = isInLoginState ? false : true
-        emailSignInView.registerStateButton.isEnabled = isInLoginState ? true : false
-        emailSignInView.loginStateButton.setTitleColor(isInLoginState ? .black : .lightGray, for: .normal)
-        emailSignInView.registerStateButton.setTitleColor(isInLoginState ? .lightGray : .black, for: .normal)
-        
-        emailSignInHeightAnchor?.constant = isInLoginState ? 280 : 352.5
-        emailSignInView.nameTextField.isHidden = isInLoginState ? true : false
-        emailSignInView.nameLabel.isHidden = isInLoginState ? true : false
-        emailSignInView.nameBottomLine.isHidden = isInLoginState ? true : false
-        
-        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
+        emailSignInViewModel.changeLoginState()
     }
     
     @objc fileprivate func handleEmail() {

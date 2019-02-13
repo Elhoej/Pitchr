@@ -19,6 +19,7 @@
 		ACB99A5E22144E2D0057F73C /* Muli-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ACB99A5B22144E2C0057F73C /* Muli-Regular.ttf */; };
 		ACB99A61221451E50057F73C /* SocialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A60221451E50057F73C /* SocialButton.swift */; };
 		ACB99A63221468E30057F73C /* EmailSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A62221468E30057F73C /* EmailSignInView.swift */; };
+		ACB99A65221492370057F73C /* EmailSignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A64221492370057F73C /* EmailSignInViewModel.swift */; };
 		ACF0042922130072004F1DD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF0042822130072004F1DD4 /* AppDelegate.swift */; };
 		ACF0042B22130072004F1DD4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF0042A22130072004F1DD4 /* HomeViewController.swift */; };
 		ACF004302213007A004F1DD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACF0042F2213007A004F1DD4 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 		ACB99A5B22144E2C0057F73C /* Muli-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Muli-Regular.ttf"; sourceTree = "<group>"; };
 		ACB99A60221451E50057F73C /* SocialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialButton.swift; sourceTree = "<group>"; };
 		ACB99A62221468E30057F73C /* EmailSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInView.swift; sourceTree = "<group>"; };
+		ACB99A64221492370057F73C /* EmailSignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInViewModel.swift; sourceTree = "<group>"; };
 		ACF0042522130071004F1DD4 /* Pitchr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pitchr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACF0042822130072004F1DD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACF0042A22130072004F1DD4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				ACB99A4D2213A2A90057F73C /* CardViewModel.swift */,
+				ACB99A64221492370057F73C /* EmailSignInViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				ACF0042B22130072004F1DD4 /* HomeViewController.swift in Sources */,
 				ACB99A582214485A0057F73C /* UIColor+Theme.swift in Sources */,
 				ACF0043D221309E1004F1DD4 /* HomeBottomControlsStackView.swift in Sources */,
+				ACB99A65221492370057F73C /* EmailSignInViewModel.swift in Sources */,
 				ACB99A50221407E90057F73C /* Advertiser.swift in Sources */,
 				ACF0042922130072004F1DD4 /* AppDelegate.swift in Sources */,
 				ACF0043B22130597004F1DD4 /* Extensions+UIView.swift in Sources */,

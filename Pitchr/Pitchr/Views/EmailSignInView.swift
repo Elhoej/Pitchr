@@ -106,7 +106,7 @@ class EmailSignInView: UIView {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "rightarrow").withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = .white
-        button.backgroundColor = .appGreenTwo
+        button.backgroundColor = UIColor(white: 0.85, alpha: 1)
         button.layer.cornerRadius = 12
         return button
     }()
