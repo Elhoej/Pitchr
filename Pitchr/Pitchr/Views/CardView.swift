@@ -10,12 +10,19 @@ import UIKit
 
 class CardView: UIView {
     
-    var cardViewModel: CardViewModel? {
+    var cardViewModel: CardViewModel! {
         didSet {
-            guard let cardVM = cardViewModel else { return }
-            cardImageView.image = UIImage(named: cardVM.imageName)
-            informationLabel.attributedText = cardVM.attributedString
-            informationLabel.textAlignment = cardVM.textAlignment
+            cardImageView.image = UIImage(named: cardViewModel.imageNames.first ?? "")
+            informationLabel.attributedText = cardViewModel.attributedString
+            informationLabel.textAlignment = cardViewModel.textAlignment
+            
+            (0..<cardViewModel.imageNames.count).forEach { (_) in
+                let barCell = UIView()
+                barCell.layer.cornerRadius = 2
+                barCell.backgroundColor = barCellDefaultColor
+                barStackView.addArrangedSubview(barCell)
+            }
+            barStackView.arrangedSubviews.first?.backgroundColor = .white
         }
     }
     
@@ -27,18 +34,23 @@ class CardView: UIView {
     
     fileprivate let gradientLayer = CAGradientLayer()
     
+    fileprivate let barStackView: UIStackView = {
+        let sv = UIStackView()
+        sv.distribution = .fillEqually
+        sv.spacing = 4
+        return sv
+    }()
+    
     fileprivate let informationLabel: UILabel = {
         let label = UILabel()
-        label.text = "TEST NAME TEST NAME AGE"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 34, weight: .heavy)
         label.numberOfLines = 0
-        
         return label
     }()
     
     //Configurations
     fileprivate let swipeThreshold: CGFloat = 120
+    fileprivate let barCellDefaultColor = UIColor(white: 0, alpha: 0.3)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,27 +64,24 @@ class CardView: UIView {
         clipsToBounds = true
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         addGestureRecognizer(panGesture)
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
     
-    fileprivate func setupGradientLayer() {
-        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
-        gradientLayer.locations = [0.6, 1.1]
-        gradientLayer.frame = self.bounds
-        layer.addSublayer(gradientLayer)
-    }
+    fileprivate var pageIndex = 0
     
-    override func layoutSubviews() {
-        gradientLayer.frame = self.frame
-    }
-    
-    fileprivate func setupViews() {
-        addSubview(cardImageView)
-        cardImageView.fillSuperview()
+    @objc fileprivate func handleTap(gesture: UITapGestureRecognizer) {
+        let location = gesture.location(in: nil)
+        let shouldAdvance = location.x > frame.width / 2 ? true : false
+        if shouldAdvance {
+            pageIndex = min(pageIndex + 1, cardViewModel.imageNames.count - 1)
+        } else {
+            pageIndex = max(0, pageIndex - 1)
+        }
         
-        setupGradientLayer()
-        
-        addSubview(informationLabel)
-        informationLabel.anchor(top: nil, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 16, right: 16))
+        let imageName = cardViewModel.imageNames[pageIndex]
+        cardImageView.image = UIImage(named: imageName)
+        barStackView.arrangedSubviews.forEach({ $0.backgroundColor = barCellDefaultColor })
+        barStackView.arrangedSubviews[pageIndex].backgroundColor = .white
     }
     
     @objc fileprivate func handlePan(gesture: UIPanGestureRecognizer) {
@@ -113,6 +122,29 @@ class CardView: UIView {
                 self.removeFromSuperview()
             }
         }
+    }
+    
+    fileprivate func setupViews() {
+        addSubview(cardImageView)
+        cardImageView.fillSuperview()
+        setupGradientLayer()
+        
+        addSubview(barStackView)
+        barStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: nil, trailing: self.trailingAnchor, padding: .init(top: 8, left: 8, bottom: 0, right: 8), size: .init(width: 0, height: 4))
+        
+        addSubview(informationLabel)
+        informationLabel.anchor(top: nil, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 16, right: 16))
+    }
+    
+    fileprivate func setupGradientLayer() {
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
+        gradientLayer.locations = [0.6, 1.1]
+        gradientLayer.frame = self.bounds
+        layer.addSublayer(gradientLayer)
+    }
+    
+    override func layoutSubviews() {
+        gradientLayer.frame = self.frame
     }
     
     required init?(coder aDecoder: NSCoder) {
