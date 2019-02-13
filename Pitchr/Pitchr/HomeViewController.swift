@@ -16,6 +16,11 @@ class HomeViewController: UIViewController {
     let bottomStackView = HomeBottomControlsStackView()
     let cardsDeckView = UIView()
     
+    let cardViewModels = [
+        User(name: "Kelly", age: 23, proffesion: "Music DJ", imageName: "test").toCardViewModel(),
+        User(name: "Jane", age: 18, proffesion: "Teacher", imageName: "test2").toCardViewModel()
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -27,8 +32,11 @@ class HomeViewController: UIViewController {
     //MARK:- Fileprivate
     
     fileprivate func setupDummyCards() {
-        (0..<10).forEach { (_) in
+        cardViewModels.forEach { (card) in
             let cardView = CardView()
+            cardView.cardImageView.image = UIImage(named: card.imageName)
+            cardView.informationLabel.attributedText = card.attributedString
+            cardView.informationLabel.textAlignment = card.textAlignment
             cardsDeckView.addSubview(cardView)
             cardView.fillSuperview()
         }

@@ -10,23 +10,45 @@ import UIKit
 
 class CardView: UIView {
     
-    fileprivate let cardImageView = UIImageView(image: #imageLiteral(resourceName: "test"))
+    let cardImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        return iv
+    }()
+    
+    let informationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "TEST NAME TEST NAME AGE"
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 34, weight: .heavy)
+        label.numberOfLines = 0
+        
+        return label
+    }()
     
     //Configurations
     fileprivate let swipeThreshold: CGFloat = 120
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        setupCardView()
+        setupViews()
+    }
+    
+    fileprivate func setupCardView() {
         layer.cornerRadius = 10
         layer.masksToBounds = true
         clipsToBounds = true
-        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        addGestureRecognizer(panGesture)
+    }
+    
+    fileprivate func setupViews() {
         addSubview(cardImageView)
         cardImageView.fillSuperview()
         
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        addGestureRecognizer(panGesture)
+        addSubview(informationLabel)
+        informationLabel.anchor(top: nil, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 16, right: 16))
     }
     
     @objc fileprivate func handlePan(gesture: UIPanGestureRecognizer) {
@@ -61,8 +83,9 @@ class CardView: UIView {
             }
         }) { (_) in
             self.transform = .identity
-            self.removeFromSuperview()
-//            self.frame = CGRect(x: 0, y: 0, width: self.superview!.frame.width, height: self.superview!.frame.height)
+            if shouldDismissCard {
+                self.removeFromSuperview()
+            }
         }
     }
     
