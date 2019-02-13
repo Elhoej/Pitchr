@@ -10,13 +10,24 @@ import UIKit
 
 class CardView: UIView {
     
-    let cardImageView: UIImageView = {
+    var cardViewModel: CardViewModel? {
+        didSet {
+            guard let cardVM = cardViewModel else { return }
+            cardImageView.image = UIImage(named: cardVM.imageName)
+            informationLabel.attributedText = cardVM.attributedString
+            informationLabel.textAlignment = cardVM.textAlignment
+        }
+    }
+    
+    fileprivate let cardImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         return iv
     }()
     
-    let informationLabel: UILabel = {
+    fileprivate let gradientLayer = CAGradientLayer()
+    
+    fileprivate let informationLabel: UILabel = {
         let label = UILabel()
         label.text = "TEST NAME TEST NAME AGE"
         label.textColor = .white
@@ -43,9 +54,22 @@ class CardView: UIView {
         addGestureRecognizer(panGesture)
     }
     
+    fileprivate func setupGradientLayer() {
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
+        gradientLayer.locations = [0.6, 1.1]
+        gradientLayer.frame = self.bounds
+        layer.addSublayer(gradientLayer)
+    }
+    
+    override func layoutSubviews() {
+        gradientLayer.frame = self.frame
+    }
+    
     fileprivate func setupViews() {
         addSubview(cardImageView)
         cardImageView.fillSuperview()
+        
+        setupGradientLayer()
         
         addSubview(informationLabel)
         informationLabel.anchor(top: nil, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 16, right: 16))
@@ -54,6 +78,8 @@ class CardView: UIView {
     @objc fileprivate func handlePan(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: nil)
         switch gesture.state {
+        case .began:
+            superview?.subviews.forEach({ $0.layer.removeAllAnimations() })
         case .changed:
             handleChanged(translation)
         case .ended:
@@ -73,7 +99,7 @@ class CardView: UIView {
     
     fileprivate func handleEnded(_ translation: CGPoint) {
         let translationDirection: CGFloat = translation.x > 0 ? 1 : -1
-        let shouldDismissCard = translation.x > swipeThreshold ? true : false
+        let shouldDismissCard = abs(translation.x) > swipeThreshold ? true : false
         
         UIView.animate(withDuration: 0.65, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
             if shouldDismissCard {

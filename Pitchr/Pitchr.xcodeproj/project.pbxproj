@@ -11,6 +11,7 @@
 		ACB99A48221311DC0057F73C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A47221311DC0057F73C /* CardView.swift */; };
 		ACB99A4B22139A6F0057F73C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A4A22139A6F0057F73C /* User.swift */; };
 		ACB99A4E2213A2A90057F73C /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A4D2213A2A90057F73C /* CardViewModel.swift */; };
+		ACB99A50221407E90057F73C /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A4F221407E90057F73C /* Advertiser.swift */; };
 		ACF0042922130072004F1DD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF0042822130072004F1DD4 /* AppDelegate.swift */; };
 		ACF0042B22130072004F1DD4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF0042A22130072004F1DD4 /* HomeViewController.swift */; };
 		ACF004302213007A004F1DD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACF0042F2213007A004F1DD4 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 		ACB99A47221311DC0057F73C /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		ACB99A4A22139A6F0057F73C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		ACB99A4D2213A2A90057F73C /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		ACB99A4F221407E90057F73C /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
 		ACF0042522130071004F1DD4 /* Pitchr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pitchr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACF0042822130072004F1DD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACF0042A22130072004F1DD4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				ACB99A4A22139A6F0057F73C /* User.swift */,
+				ACB99A4F221407E90057F73C /* Advertiser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 			files = (
 				ACF0042B22130072004F1DD4 /* HomeViewController.swift in Sources */,
 				ACF0043D221309E1004F1DD4 /* HomeBottomControlsStackView.swift in Sources */,
+				ACB99A50221407E90057F73C /* Advertiser.swift in Sources */,
 				ACF0042922130072004F1DD4 /* AppDelegate.swift in Sources */,
 				ACF0043B22130597004F1DD4 /* Extensions+UIView.swift in Sources */,
 				ACB99A4E2213A2A90057F73C /* CardViewModel.swift in Sources */,

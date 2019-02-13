@@ -16,10 +16,16 @@ class HomeViewController: UIViewController {
     let bottomStackView = HomeBottomControlsStackView()
     let cardsDeckView = UIView()
     
-    let cardViewModels = [
-        User(name: "Kelly", age: 23, proffesion: "Music DJ", imageName: "test").toCardViewModel(),
-        User(name: "Jane", age: 18, proffesion: "Teacher", imageName: "test2").toCardViewModel()
-    ]
+    let cardViewModels: [CardViewModel] = {
+        let producers = [
+            User(name: "Kelly", age: 23, proffesion: "Music DJ", imageName: "test"),
+            User(name: "Jane", age: 18, proffesion: "Teacher", imageName: "test2"),
+            Advertiser(title: "Best soda ever", brandName: "DrPepper", posterPhotoName: "drpepper")
+        ] as [ProducesCardViewModel]
+        
+        let viewModels = producers.map({ return $0.toCardViewModel() })
+        return viewModels
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +40,7 @@ class HomeViewController: UIViewController {
     fileprivate func setupDummyCards() {
         cardViewModels.forEach { (card) in
             let cardView = CardView()
-            cardView.cardImageView.image = UIImage(named: card.imageName)
-            cardView.informationLabel.attributedText = card.attributedString
-            cardView.informationLabel.textAlignment = card.textAlignment
+            cardView.cardViewModel = card
             cardsDeckView.addSubview(cardView)
             cardView.fillSuperview()
         }
