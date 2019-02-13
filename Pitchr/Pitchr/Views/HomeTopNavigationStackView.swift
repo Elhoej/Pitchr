@@ -1,5 +1,5 @@
 //
-//  HomeBottomControlsStackView.swift
+//  HomeTopNavigationStackView.swift
 //  Pitchr
 //
 //  Created by Simon Elhoej Steinmejer on 12/02/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeBottomControlsStackView: UIStackView {
+class HomeTopNavigationStackView: UIStackView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,8 +19,10 @@ class HomeBottomControlsStackView: UIStackView {
     
     fileprivate func setupStackView() {
         addArrangedSubview(UIView())
-        distribution = .fillEqually
-        heightAnchor.constraint(equalToConstant: 100).isActive = true
+        distribution = .equalCentering
+        isLayoutMarginsRelativeArrangement = true
+        layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
     
     required init(coder: NSCoder) {
