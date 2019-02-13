@@ -1,4 +1,6 @@
-# Pitchr
+# Pitchr (WIP)
+
+An app for creators to pitch ideas and investors to swipe on ideas "Tinder style"
 
 Login:
 
