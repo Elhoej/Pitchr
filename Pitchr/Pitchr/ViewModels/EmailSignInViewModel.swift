@@ -22,12 +22,18 @@ class EmailSignInViewModel {
     var loginStateObserver: ((Bool) -> ())?
     
     fileprivate func checkIfFormIsValid() {
-        let isFormValid = name?.isEmpty == false && email?.count ?? 0 > 4 && email?.contains("@") ?? false && password?.count ?? 0 > 5
-        isFormValidObserver?(isFormValid)
+        if isInLoginState {
+            let isFormValid = email?.count ?? 0 > 4 && email?.contains("@") ?? false && password?.count ?? 0 > 5
+            isFormValidObserver?(isFormValid)
+        } else {
+            let isFormValid = name?.isEmpty == false && email?.count ?? 0 > 4 && email?.contains("@") ?? false && password?.count ?? 0 > 5
+            isFormValidObserver?(isFormValid)
+        }
     }
     
     func changeLoginState() {
         isInLoginState = isInLoginState ? false : true
+        checkIfFormIsValid()
     }
     
     fileprivate func checkLoginState() {

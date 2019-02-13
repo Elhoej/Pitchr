@@ -87,6 +87,7 @@ class LoginViewController: UIViewController {
     
     fileprivate func setupEmailSignInViewModelObservers() {
         emailSignInViewModel.isFormValidObserver = { [weak self] (isFormValid) in
+            print(isFormValid)
             self?.emailSignInView.signInButton.isEnabled = isFormValid ? true : false
             self?.emailSignInView.signInButton.backgroundColor = isFormValid ? .appGreenTwo : UIColor(white: 0.85, alpha: 1)
         }
@@ -126,7 +127,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc fileprivate func handleTextChanged(textField: UITextField) {
-        if textField == emailSignInView.nameTextField {
+        if textField == emailSignInView.emailTextField {
             emailSignInViewModel.email = textField.text
         } else if textField == emailSignInView.passwordTextField {
             emailSignInViewModel.password = textField.text
