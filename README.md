@@ -2,6 +2,7 @@
 
 An app where creators can pitch ideas and investors can swipe on ideas "Tinder style"
 
-Test demo:
+## Test demo:
 
-![test-demo](https://user-images.githubusercontent.com/22837318/52769056-7cfc0c80-302f-11e9-8085-799c7f208c25.gif)
+
+![screenrecording_021420190746 1](https://user-images.githubusercontent.com/22837318/52769902-03b1e900-3032-11e9-9f8d-5bd38fbb1448.gif)
