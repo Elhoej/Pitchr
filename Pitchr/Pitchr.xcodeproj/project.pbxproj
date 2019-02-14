@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9896716B3F0AE1FF460F722A /* Pods_Pitchr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8ABA559F42EFD0FD9AAF1AE /* Pods_Pitchr.framework */; };
+		AC854D7722153BC000D12A61 /* PitchDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC854D7622153BC000D12A61 /* PitchDeck.swift */; };
 		ACB99A4622130DF40057F73C /* HomeTopNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A4522130DF40057F73C /* HomeTopNavigationStackView.swift */; };
 		ACB99A48221311DC0057F73C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A47221311DC0057F73C /* CardView.swift */; };
 		ACB99A4B22139A6F0057F73C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB99A4A22139A6F0057F73C /* User.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		3EFDC8F11834FF6FA69B0D62 /* Pods-Pitchr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pitchr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pitchr/Pods-Pitchr.release.xcconfig"; sourceTree = "<group>"; };
 		82AC5940CC2BB2B1795285B5 /* Pods-Pitchr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pitchr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pitchr/Pods-Pitchr.debug.xcconfig"; sourceTree = "<group>"; };
+		AC854D7622153BC000D12A61 /* PitchDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchDeck.swift; sourceTree = "<group>"; };
 		ACB99A4522130DF40057F73C /* HomeTopNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopNavigationStackView.swift; sourceTree = "<group>"; };
 		ACB99A47221311DC0057F73C /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		ACB99A4A22139A6F0057F73C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			children = (
 				ACB99A4A22139A6F0057F73C /* User.swift */,
 				ACB99A4F221407E90057F73C /* Advertiser.swift */,
+				AC854D7622153BC000D12A61 /* PitchDeck.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				ACF0043B22130597004F1DD4 /* Extensions+UIView.swift in Sources */,
 				ACB99A4E2213A2A90057F73C /* CardViewModel.swift in Sources */,
 				ACB99A63221468E30057F73C /* EmailSignInView.swift in Sources */,
+				AC854D7722153BC000D12A61 /* PitchDeck.swift in Sources */,
 				ACB99A48221311DC0057F73C /* CardView.swift in Sources */,
 				ACB99A61221451E50057F73C /* SocialButton.swift in Sources */,
 				ACB99A4622130DF40057F73C /* HomeTopNavigationStackView.swift in Sources */,

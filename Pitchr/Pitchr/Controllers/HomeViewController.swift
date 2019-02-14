@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class HomeViewController: UIViewController {
 
@@ -16,11 +17,12 @@ class HomeViewController: UIViewController {
     let bottomStackView = HomeBottomControlsStackView()
     let cardsDeckView = UIView()
     
+    //For testing only
     let cardViewModels: [CardViewModel] = {
         let producers = [
-            User(name: "Kelly", age: 23, proffesion: "Music DJ", imageNames: ["test", "test2"]),
-            User(name: "Jane", age: 18, proffesion: "Teacher", imageNames: ["test2", "test", "drpepper"]),
-            Advertiser(title: "Best soda ever", brandName: "DrPepper", posterPhotoName: "drpepper")
+            PitchDeck(pitchName: "Uber", name: "Garrett Camp", summary: "Request a ride at the push of a button", imageNames: ["uber-1", "uber-2", "uber-3"]),
+            Advertiser(title: "Good for life!", brandName: "Dr Pepper", posterPhotoName: "drpepper"),
+            PitchDeck(pitchName: "Too Good To Go", name: "Jamie Crummie", summary: "Red lækker mad og bekæmp madspild", imageNames: ["tgtg-1", "tgtg-2", "tgtg-3"])
         ] as [ProducesCardViewModel]
         
         let viewModels = producers.map({ return $0.toCardViewModel() })
@@ -31,18 +33,37 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupViews()
-        
-        topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
+        setupTopNav()
         
         setupDummyCards()
     }
     
-    @objc func handleSettings() {
+    //MARK: - Fileprivate
+    
+    //testing...
+    fileprivate func fetchUsersFromFirestore() {
+        Firestore.firestore().collection("users").getDocuments { (snapshot, error) in
+            if let error = error {
+                NSLog("Failed to fetch users from Firestore: \(error)")
+                return
+            }
+            
+            snapshot?.documents.forEach({ (docSnap) in
+                let userDictionary = docSnap.data()
+                let user = User(dictionary: userDictionary)
+                print(user.name)
+            })
+        }
+    }
+    
+    fileprivate func setupTopNav() {
+        topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
+    }
+    
+    @objc fileprivate func handleSettings() {
         let loginViewController = LoginViewController()
         present(loginViewController, animated: true, completion: nil)
     }
-    
-    //MARK: - Fileprivate
     
     fileprivate func setupDummyCards() {
         cardViewModels.forEach { (card) in

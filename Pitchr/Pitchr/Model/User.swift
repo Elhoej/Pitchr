@@ -8,21 +8,16 @@
 
 import UIKit
 
-struct User: ProducesCardViewModel {
+struct User {
     let name: String
     let age: Int
     let proffesion: String
     let imageNames: [String]
     
-    func toCardViewModel() -> CardViewModel {
-        let informationAttributedText = generateAttributedText()
-        return CardViewModel(imageNames: imageNames, attributedString: informationAttributedText, textAlignment: .left)
-    }
-    
-    fileprivate func generateAttributedText() -> NSAttributedString {
-        let attributedText = NSMutableAttributedString(string: name, attributes: [.font: UIFont.systemFont(ofSize: 32, weight: .heavy)])
-        attributedText.append(NSAttributedString(string: "  \(age)", attributes: [.font: UIFont.systemFont(ofSize: 24, weight: .regular)]))
-        attributedText.append(NSAttributedString(string: "\n\(proffesion)", attributes: [.font: UIFont.systemFont(ofSize: 22, weight: .regular)]))
-        return attributedText
+    init(dictionary: [String: Any]) {
+        self.name = dictionary["name"] as? String ?? ""
+        self.age = 0
+        self.proffesion = "Jobless"
+        self.imageNames = []
     }
 }

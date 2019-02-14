@@ -157,6 +157,11 @@ class LoginViewController: UIViewController {
             self?.loadingIndicator.indicatorView = JGProgressHUDSuccessIndicatorView()
             self?.loadingIndicator.textLabel.text = "Success!"
             self?.loadingIndicator.dismiss(afterDelay: 1)
+            
+            //temp for testing
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.3, execute: {
+                self?.present(HomeViewController(), animated: true, completion: nil)
+            })
         }
     }
     

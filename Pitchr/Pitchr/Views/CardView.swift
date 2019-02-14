@@ -16,6 +16,11 @@ class CardView: UIView {
             informationLabel.attributedText = cardViewModel.attributedString
             informationLabel.textAlignment = cardViewModel.textAlignment
     
+            if cardViewModel.textAlignment == .center {
+                advertisementLabel.isHidden = false
+                barStackView.isHidden = true
+            }
+            
             setupBarStackView()
             setupPageIndexObserver()
         }
@@ -52,6 +57,17 @@ class CardView: UIView {
         sv.distribution = .fillEqually
         sv.spacing = 4
         return sv
+    }()
+    
+    fileprivate let advertisementLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Advertisement"
+        label.textAlignment = .right
+        label.textColor = .white
+        label.font = Appearance.appFont(with: 18, weight: .bold)
+        label.sizeToFit()
+        label.isHidden = true
+        return label
     }()
     
     fileprivate let informationLabel: UILabel = {
@@ -138,6 +154,9 @@ class CardView: UIView {
         
         addSubview(barStackView)
         barStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: nil, trailing: self.trailingAnchor, padding: .init(top: 8, left: 8, bottom: 0, right: 8), size: .init(width: 0, height: 4))
+        
+        addSubview(advertisementLabel)
+        advertisementLabel.anchor(top: self.topAnchor, leading: nil, bottom: nil, trailing: self.trailingAnchor, padding: .init(top: 12, left: 0, bottom: 0, right: 12))
         
         addSubview(informationLabel)
         informationLabel.anchor(top: nil, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 16, right: 16))
